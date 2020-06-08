@@ -1,0 +1,32 @@
+server:
+  port: 8003
+
+#服务名称
+spring:
+  application:
+    name: cloud-order-hystrix-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource #当前数据的操作类型
+    driver-class-name: com.mysql.jdbc.Driver #mysql驱动包com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.113:3306/db2019  #?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: 123456
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+# 设置 feign 客户端超时时间（OpenFeign 默认支持 ribbon）
+ribbon:
+  # 值的是建立链接所用的时间，适用于网络状况正常的情况下， 两端链接所用的时间
+  ReadTimeout: 5000
+  # 指的是建立链接后从服务器读取可用资源所用的时间
+  ConectTimeout: 5000
+
+#这个配置画蛇添足了，可以不要，但是在配置Feign的接口fallBack实现类时需要加上
+feign:
+  hystrix:
+    enabled: true
+
